@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Consultation – Floral Roots & Decors</title>
+  <meta name="description" content="Book your wedding or event consultation with Floral Roots & Decors, Banepa, Nepal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="icon" type="image/x-icon" href="Main__Logo__1.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream:         '#fdfaf6',
+            'cream-dark':  '#f5f0ea',
+            beige:         '#c8b89a',
+            'beige-light': '#e8ddd0',
+            'beige-nav':   '#d4c4b0',
+            'beige-btn':   '#b8a48e',
+            'beige-btn-h': '#a8947e',
+            gold:          '#b8965c',
+            'gold-light':  '#d4b07a',
+            text:          '#3a2e26',
+            'text-mid':    '#6b5a4e',
+            'text-muted':  '#9c8b80',
+            border:        '#e0d4c8',
+            green:         '#6b8c6b',
+            'green-dark':  '#1e4d35',
+            dark:          '#161210',
+            'dark-2':      '#251e19',
+          },
+          fontFamily: {
+            playfair: ['"Playfair Display"', 'serif'],
+            jost:     ['Jost', 'sans-serif'],
+          },
+          keyframes: {
+            fadeUp: { from:{opacity:'0',transform:'translateY(24px)'}, to:{opacity:'1',transform:'none'} },
+            fadeIn: { from:{opacity:'0'}, to:{opacity:'1'} },
+            shimmer:{ from:{backgroundPosition:'200% center'}, to:{backgroundPosition:'-200% center'} },
+          },
+          animation: {
+            'fade-up':   'fadeUp 0.7s ease both',
+            'fade-up-1': 'fadeUp 0.7s 0.1s ease both',
+            'fade-up-2': 'fadeUp 0.7s 0.2s ease both',
+            'fade-up-3': 'fadeUp 0.7s 0.3s ease both',
+            'fade-up-4': 'fadeUp 0.7s 0.4s ease both',
+            'fade-up-5': 'fadeUp 0.7s 0.5s ease both',
+            'fade-in':   'fadeIn 0.5s ease both',
+          },
+          boxShadow: {
+            card:       '0 4px 24px rgba(100,80,60,0.08)',
+            'card-h':   '0 14px 44px rgba(100,80,60,0.15)',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+
+    /* ── Input focus ring ── */
+    .form-input {
+      width: 100%;
+      background: #f5f0ea;
+      border: 1px solid #e0d4c8;
+      padding: 13px 16px;
+      font-size: 0.875rem;
+      color: #3a2e26;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: 'Jost', sans-serif;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: #9c8b80; }
+    .form-input:focus { border-color: #b8965c; box-shadow: 0 0 0 3px rgba(184,150,92,0.12); }
+    .form-input.error { border-color: #c0392b !important; box-shadow: 0 0 0 3px rgba(192,57,43,0.1); }
+
+    /* ── Step indicator ── */
+    .step-dot { transition: all 0.35s ease; }
+    .step-line { transition: width 0.5s ease; }
+
+    /* ── Budget pill ── */
+    .budget-pill {
+      cursor: pointer;
+      border: 1px solid #e0d4c8;
+      color: #9c8b80;
+      font-size: 0.72rem;
+      padding: 8px 14px;
+      transition: all 0.2s;
+      font-family: 'Jost', sans-serif;
+      background: transparent;
+    }
+    .budget-pill:hover { border-color: #b8965c; color: #b8965c; }
+    .budget-pill.active { background: #1e4d35; border-color: #1e4d35; color: #fff; }
+
+    /* ── Service checkbox card ── */
+    .service-card input[type="checkbox"] { display: none; }
+    .service-card label {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid #e0d4c8;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.84rem;
+      color: #6b5a4e;
+    }
+    .service-card label:hover { border-color: #b8965c; color: #3a2e26; }
+    .service-card input:checked + label { border-color: #1e4d35; background: rgba(30,77,53,0.05); color: #1e4d35; }
+    .service-card .check-box {
+      width: 18px; height: 18px; border: 1.5px solid #e0d4c8;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.2s; border-radius: 2px;
+    }
+    .service-card input:checked + label .check-box { background: #1e4d35; border-color: #1e4d35; }
+    .service-card input:checked + label .check-box::after {
+      content: '✓'; color: #fff; font-size: 11px; line-height: 1;
+    }
+
+    /* ── Form step panels ── */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ── Submit spinner ── */
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .spin { animation: spin 0.7s linear infinite; }
+
+    /* ── Success bloom ── */
+    .success-wrap { display: none; }
+    .success-wrap.show { display: flex; }
+
+    /* ── Supabase config banner ── */
+    .config-banner {
+      background: linear-gradient(135deg, #1e4d35 0%, #2d6b49 100%);
+      border-left: 4px solid #b8965c;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f5f0ea; }
+    ::-webkit-scrollbar-thumb { background: #d4c4b0; border-radius: 3px; }
+  </style>
+</head>
+
+<body class="font-jost bg-cream-dark min-h-screen">
+
+<!-- ════════════════ SUPABASE CONFIG BANNER ════════════════ -->
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║              SUPABASE CONFIGURATION — FILL THESE            ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  1. Go to https://supabase.com → Your Project → Settings → API
+  2. Copy your Project URL and anon/public key
+  3. Paste them below in the <script> block marked "SUPABASE CONFIG"
+  4. Create a table named "bookings" — see schema below
+-->
+<script>
+  /* ════════════════════════════════════════════════════
+     SUPABASE CONFIG — REPLACE WITH YOUR CREDENTIALS
+     ════════════════════════════════════════════════════ */
+  const SUPABASE_URL    = 'YOUR_SUPABASE_PROJECT_URL';   // e.g. https://xyzxyz.supabase.co
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';   // e.g. eyJhbGci...
+
+  /*
+    ── REQUIRED TABLE SCHEMA (run in Supabase SQL Editor) ──────
+    CREATE TABLE bookings (
+      id            bigserial PRIMARY KEY,
+      created_at    timestamptz DEFAULT now(),
+      full_name     text NOT NULL,
+      phone         text NOT NULL,
+      email         text,
+      event_type    text NOT NULL,
+      event_date    date NOT NULL,
+      venue         text,
+      budget        text,
+      services      text[],
+      message       text,
+      status        text DEFAULT 'pending'
+    );
+
+    -- Enable Row Level Security (optional but recommended)
+    ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+    CREATE POLICY "Allow insert for all" ON bookings FOR INSERT WITH CHECK (true);
+  ───────────────────────────────────────────────────── */
+</script>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header class="bg-cream border-b border-border">
+  <div class="max-w-[1100px] mx-auto h-[130px] flex items-center justify-between px-8 max-[600px]:px-5">
+    <a href="index.html" class="flex items-center gap-2 group">
+      <svg class="w-4 h-4 stroke-text-muted group-hover:stroke-green-dark transition-colors duration-200" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span class="text-[0.65rem] tracking-[0.18em] uppercase text-text-muted group-hover:text-green-dark transition-colors duration-200 font-medium">Back to Site</span>
+    </a>
+    <div class="th-center flex justify-center items-center">
+    <img src="Main__Logo__1.1__Transparent.png"
+         alt="Floral Roots Logo"
+         class="h-24 md:h-28 lg:h-32 w-auto object-contain">
+  </div>
+    <div class="flex items-center gap-2">
+      <div class="w-2 h-2 rounded-full bg-green animate-pulse"></div>
+      <span class="text-[0.65rem] tracking-[0.12em] uppercase text-text-muted font-medium">Available 24/7</span>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════ HERO BAND ════════════════ -->
+<div class="bg-dark-2 py-14 px-8 text-center relative overflow-hidden">
+  <!-- Decorative circles -->
+  <div class="absolute top-[-40px] left-[-40px] w-[200px] h-[200px] rounded-full border border-white/5 pointer-events-none"></div>
+  <div class="absolute bottom-[-60px] right-[-60px] w-[280px] h-[280px] rounded-full border border-white/5 pointer-events-none"></div>
+
+  <div class="relative z-10">
+    <div class="text-[0.58rem] tracking-[0.35em] uppercase text-gold font-medium mb-3 flex items-center justify-center gap-3 animate-fade-up">
+      <span class="w-6 h-px bg-gold inline-block"></span>Reserve Your Date<span class="w-6 h-px bg-gold inline-block"></span>
+    </div>
+    <h1 class="font-playfair text-[clamp(1.8rem,4vw,3.2rem)] text-white font-normal leading-[1.1] mb-3 animate-fade-up-1">
+      Book a <em class="not-italic text-gold-light">Consultation</em>
+    </h1>
+    <p class="text-[0.85rem] text-white/50 font-light max-w-[460px] mx-auto leading-[1.85] animate-fade-up-2">
+      Fill in the details below and we'll get back to you within 24 hours to confirm your booking.
+    </p>
+    <!-- Urgency -->
+    <div class="inline-flex items-center gap-2.5 mt-5 bg-white/[0.06] border border-gold/25 px-5 py-2.5 animate-fade-up-3">
+      <div class="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0"></div>
+      <span class="text-[0.75rem] text-gold-light font-light">Only <strong class="font-medium">6 dates left</strong> in 2082/83 — book early</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ MAIN LAYOUT ════════════════ -->
+<div class="max-w-[1100px] mx-auto px-8 py-14 grid grid-cols-[1fr_320px] gap-10 max-[900px]:grid-cols-1 max-[600px]:px-5 max-[600px]:py-9">
+
+  <!-- ── LEFT: MULTI-STEP FORM ── -->
+  <div>
+
+    <!-- Step Indicator -->
+    <div class="flex items-center gap-0 mb-10 animate-fade-up">
+      <div class="step-indicator flex items-center gap-0 w-full">
+
+        <div class="flex flex-col items-center gap-1.5">
+          <div class="step-dot w-8 h-8 rounded-full bg-green-dark text-white flex items-center justify-center text-[0.72rem] font-medium" id="dot-1">1</div>
+          <span class="text-[0.58rem] tracking-[0.12em] uppercase text-green-dark font-medium">Personal</span>
+        </div>
+
+        <div class="flex-1 h-px bg-border mx-2 mt-[-14px] relative">
+          <div class="step-line h-full bg-green-dark absolute left-0 top-0" id="line-1" style="width:0%"></div>
+        </div>
+
+        <div class="flex flex-col items-center gap-1.5">
+          <div class="step-dot w-8 h-8 rounded-full bg-border text-text-muted flex items-center justify-center text-[0.72rem] font-medium" id="dot-2">2</div>
+          <span class="text-[0.58rem] tracking-[0.12em] uppercase text-text-muted font-medium" id="label-2">Event</span>
+        </div>
+
+        <div class="flex-1 h-px bg-border mx-2 mt-[-14px] relative">
+          <div class="step-line h-full bg-green-dark absolute left-0 top-0" id="line-2" style="width:0%"></div>
+        </div>
+
+        <div class="flex flex-col items-center gap-1.5">
+          <div class="step-dot w-8 h-8 rounded-full bg-border text-text-muted flex items-center justify-center text-[0.72rem] font-medium" id="dot-3">3</div>
+          <span class="text-[0.58rem] tracking-[0.12em] uppercase text-text-muted font-medium" id="label-3">Details</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white border border-border shadow-card animate-fade-up-1" id="form-card">
+
+      <!-- ─── STEP 1: Personal Info ─── -->
+      <div class="step-panel active" id="step-1">
+        <div class="px-9 pt-9 pb-7 max-[600px]:px-6 max-[600px]:pt-7">
+          <div class="mb-7">
+            <div class="text-[0.58rem] tracking-[0.28em] uppercase text-text-muted font-medium mb-1">Step 1 of 3</div>
+            <h2 class="font-playfair text-[1.4rem] text-text font-normal">Your Information</h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 max-[500px]:grid-cols-1">
+            <div>
+              <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Full Name <span class="text-red-400">*</span></label>
+              <input id="f-name" type="text" placeholder="e.g. Anita Shrestha" class="form-input" />
+              <p class="err-msg text-[0.7rem] text-red-500 mt-1 hidden" id="err-name">Please enter your full name</p>
+            </div>
+            <div>
+              <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Phone Number <span class="text-red-400">*</span></label>
+              <input id="f-phone" type="tel" placeholder="98XXXXXXXX" class="form-input" />
+              <p class="err-msg text-[0.7rem] text-red-500 mt-1 hidden" id="err-phone">Enter a valid Nepal number (98/97...)</p>
+            </div>
+            <div class="col-span-2 max-[500px]:col-span-1">
+              <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Email Address <span class="text-text-muted font-light">(optional)</span></label>
+              <input id="f-email" type="email" placeholder="your@email.com" class="form-input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="px-9 py-5 border-t border-border flex justify-end max-[600px]:px-6">
+          <button onclick="goStep(2)" class="px-10 py-[13px] bg-green-dark text-white text-[0.65rem] tracking-[0.22em] uppercase font-medium transition-all duration-300 hover:bg-[#163d28] hover:-translate-y-0.5 flex items-center gap-2">
+            Next: Event Details
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ─── STEP 2: Event Info ─── -->
+      <div class="step-panel" id="step-2">
+        <div class="px-9 pt-9 pb-7 max-[600px]:px-6 max-[600px]:pt-7">
+          <div class="mb-7">
+            <div class="text-[0.58rem] tracking-[0.28em] uppercase text-text-muted font-medium mb-1">Step 2 of 3</div>
+            <h2 class="font-playfair text-[1.4rem] text-text font-normal">Event Details</h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-5 max-[500px]:grid-cols-1">
+            <div>
+              <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Event Type <span class="text-red-400">*</span></label>
+              <select id="f-event" class="form-input">
+                <option value="">Select event type</option>
+                <option>Wedding</option>
+                <option>Bratabandha</option>
+                <option>Birthday</option>
+                <option>Dashain / Tihar</option>
+                <option>Anniversary</option>
+                <option>House Blessing</option>
+                <option>Other Ceremony</option>
+              </select>
+              <p class="err-msg text-[0.7rem] text-red-500 mt-1 hidden" id="err-event">Please select an event type</p>
+            </div>
+            <div>
+              <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Event Date <span class="text-red-400">*</span></label>
+              <input id="f-date" type="date" class="form-input" />
+              <p class="err-msg text-[0.7rem] text-red-500 mt-1 hidden" id="err-date">Please select your event date</p>
+            </div>
+            <div class="col-span-2 max-[500px]:col-span-1">
+              <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Venue / Location <span class="text-text-muted font-light">(optional)</span></label>
+              <input id="f-venue" type="text" placeholder="e.g. Banepa Party Palace, Kavrepalanchok" class="form-input" />
+            </div>
+          </div>
+
+          <!-- Budget -->
+          <div class="mb-1">
+            <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-3">Estimated Budget</label>
+            <div class="flex gap-2 flex-wrap">
+              <button type="button" onclick="selectBudget(this,'Under Rs. 25,000')"  class="budget-pill">Under 25K</button>
+              <button type="button" onclick="selectBudget(this,'Rs. 25,000–50,000')" class="budget-pill active">25K – 50K</button>
+              <button type="button" onclick="selectBudget(this,'Rs. 50,000–1,00,000')" class="budget-pill">50K – 1L</button>
+              <button type="button" onclick="selectBudget(this,'Rs. 1,00,000–2,00,000')" class="budget-pill">1L – 2L</button>
+              <button type="button" onclick="selectBudget(this,'Above Rs. 2,00,000')" class="budget-pill">2L+</button>
+            </div>
+            <input type="hidden" id="f-budget" value="Rs. 25,000–50,000" />
+          </div>
+        </div>
+
+        <div class="px-9 py-5 border-t border-border flex justify-between max-[600px]:px-6">
+          <button onclick="goStep(1)" class="px-7 py-[13px] bg-transparent text-text-mid text-[0.65rem] tracking-[0.22em] uppercase font-medium border border-border transition-all duration-300 hover:border-text-mid flex items-center gap-2">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Back
+          </button>
+          <button onclick="goStep(3)" class="px-10 py-[13px] bg-green-dark text-white text-[0.65rem] tracking-[0.22em] uppercase font-medium transition-all duration-300 hover:bg-[#163d28] hover:-translate-y-0.5 flex items-center gap-2">
+            Next: Services
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ─── STEP 3: Services + Message ─── -->
+      <div class="step-panel" id="step-3">
+        <div class="px-9 pt-9 pb-7 max-[600px]:px-6 max-[600px]:pt-7">
+          <div class="mb-7">
+            <div class="text-[0.58rem] tracking-[0.28em] uppercase text-text-muted font-medium mb-1">Step 3 of 3</div>
+            <h2 class="font-playfair text-[1.4rem] text-text font-normal">Services & Message</h2>
+          </div>
+
+          <!-- Services checkboxes -->
+          <div class="mb-6">
+            <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-3">Services Needed <span class="text-text-muted font-light">(select all that apply)</span></label>
+            <div class="grid grid-cols-2 gap-2 max-[500px]:grid-cols-1">
+              <div class="service-card"><input type="checkbox" id="s1" value="Wedding Decor"><label for="s1"><span class="check-box"></span>💍 Wedding Decor</label></div>
+              <div class="service-card"><input type="checkbox" id="s2" value="Event Planning"><label for="s2"><span class="check-box"></span>🎊 Event Planning</label></div>
+              <div class="service-card"><input type="checkbox" id="s3" value="Floral Arrangements"><label for="s3"><span class="check-box"></span>🌸 Floral Arrangements</label></div>
+              <div class="service-card"><input type="checkbox" id="s4" value="Mandap & Stage"><label for="s4"><span class="check-box"></span>🪔 Mandap & Stage</label></div>
+              <div class="service-card"><input type="checkbox" id="s5" value="Bridal Car Decor"><label for="s5"><span class="check-box"></span>🚗 Bridal Car Decor</label></div>
+              <div class="service-card"><input type="checkbox" id="s6" value="Home & Pandal"><label for="s6"><span class="check-box"></span>🏠 Home & Pandal</label></div>
+              <div class="service-card"><input type="checkbox" id="s7" value="Chocolate Bouquets"><label for="s7"><span class="check-box"></span>🎁 Chocolate Bouquets</label></div>
+              <div class="service-card"><input type="checkbox" id="s8" value="Table & Venue Decor"><label for="s8"><span class="check-box"></span>🪷 Table & Venue Decor</label></div>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label class="block text-[0.65rem] tracking-[0.15em] uppercase text-text-muted font-medium mb-2">Additional Message <span class="text-text-muted font-light">(optional)</span></label>
+            <textarea id="f-message" rows="4" placeholder="Tell us more about your vision, theme, or any special requests..." class="form-input resize-none"></textarea>
+          </div>
+
+          <!-- Error from Supabase -->
+          <div id="submit-error" class="hidden mt-4 bg-red-50 border border-red-200 px-4 py-3 text-[0.8rem] text-red-600 font-light"></div>
+        </div>
+
+        <div class="px-9 py-5 border-t border-border flex justify-between max-[600px]:px-6">
+          <button onclick="goStep(2)" class="px-7 py-[13px] bg-transparent text-text-mid text-[0.65rem] tracking-[0.22em] uppercase font-medium border border-border transition-all duration-300 hover:border-text-mid flex items-center gap-2">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            Back
+          </button>
+          <button id="submit-btn" onclick="submitBooking()" class="px-10 py-[13px] bg-green-dark text-white text-[0.65rem] tracking-[0.22em] uppercase font-medium transition-all duration-300 hover:bg-[#163d28] hover:-translate-y-0.5 flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0">
+            <span id="btn-label">Send Booking Request →</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── SUCCESS STATE ─── -->
+    <div class="success-wrap flex-col items-center text-center bg-white border border-border shadow-card px-12 py-16 hidden animate-fade-in" id="success-state">
+      <div class="w-16 h-16 rounded-full bg-green/10 flex items-center justify-center mb-6">
+        <svg class="w-8 h-8 stroke-green-dark fill-none" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div class="text-[0.6rem] tracking-[0.28em] uppercase text-green-dark font-medium mb-2">Booking Received</div>
+      <h2 class="font-playfair text-[1.8rem] text-text font-normal mb-3">Thank You! 🌸</h2>
+      <p class="text-[0.88rem] text-text-mid font-light leading-[1.85] max-w-[420px] mb-8">
+        Your consultation request has been submitted successfully. Our team will contact you within <strong class="font-medium text-text">24 hours</strong> to confirm your booking.
+      </p>
+      <div class="flex gap-3 flex-wrap justify-center">
+        <a href="https://wa.me/9779840261629" target="_blank" class="px-8 py-[12px] bg-[#25d366] text-white text-[0.62rem] tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:bg-[#1ebe5d] hover:-translate-y-0.5">WhatsApp Us</a>
+        <a href="index.html" class="px-8 py-[12px] bg-transparent text-text-mid text-[0.62rem] tracking-[0.2em] uppercase font-medium border border-border transition-all duration-300 hover:border-text-mid hover:-translate-y-0.5">Back to Home</a>
+      </div>
+      <!-- Summary -->
+      <div class="mt-10 w-full max-w-[400px] bg-cream-dark border border-border p-5 text-left" id="booking-summary"></div>
+    </div>
+
+  </div>
+
+  <!-- ── RIGHT: Sidebar ── -->
+  <aside class="flex flex-col gap-5 max-[900px]:grid max-[900px]:grid-cols-2 max-[600px]:grid-cols-1">
+
+    <!-- Contact quick -->
+    <div class="bg-green-dark p-6 animate-fade-up-2">
+      <div class="text-[0.58rem] tracking-[0.28em] uppercase text-gold font-medium mb-4 flex items-center gap-2">
+        <span class="w-5 h-px bg-gold inline-block"></span>Quick Contact
+      </div>
+      <div class="flex flex-col gap-4">
+        <a href="tel:9840261629" class="flex items-center gap-3 group">
+          <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-3.5 h-3.5 stroke-white fill-none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.6 3.39 2 2 0 013.59 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.63a16 16 0 006 6l.91-.91a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <span class="text-[0.82rem] text-white/65 group-hover:text-white transition-colors duration-200">+977-9840261629</span>
+        </a>
+        <a href="mailto:floralrootsdecors@gmail.com" class="flex items-center gap-3 group">
+          <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-3.5 h-3.5 stroke-white fill-none" viewBox="0 0 24 24" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>
+          </div>
+          <span class="text-[0.82rem] text-white/65 group-hover:text-white transition-colors duration-200 break-all">floralrootsdecors@gmail.com</span>
+        </a>
+        <a href="https://wa.me/9779840261629" target="_blank" class="flex items-center gap-3 group">
+          <div class="w-8 h-8 rounded-full bg-[#25d366]/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-3.5 h-3.5 fill-[#25d366]" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <span class="text-[0.82rem] text-white/65 group-hover:text-white transition-colors duration-200">Chat on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Why choose us -->
+    <div class="bg-white border border-border p-6 animate-fade-up-3">
+      <div class="text-[0.58rem] tracking-[0.28em] uppercase text-text-muted font-medium mb-4">Why Choose Us</div>
+      <div class="flex flex-col gap-3.5">
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-3 h-3 stroke-green-dark fill-none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p class="text-[0.8rem] text-text-mid font-light leading-[1.6]">500+ events decorated across Kavrepalanchok</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-3 h-3 stroke-green-dark fill-none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p class="text-[0.8rem] text-text-mid font-light leading-[1.6]">Fresh flowers, custom designs, every budget</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-3 h-3 stroke-green-dark fill-none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p class="text-[0.8rem] text-text-mid font-light leading-[1.6]">24/7 support — always a WhatsApp away</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-green/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-3 h-3 stroke-green-dark fill-none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p class="text-[0.8rem] text-text-mid font-light leading-[1.6]">Reply guaranteed within 24 hours</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="bg-white border border-border p-6 animate-fade-up-4">
+      <div class="text-[0.58rem] tracking-[0.28em] uppercase text-text-muted font-medium mb-3">Location</div>
+      <p class="text-[0.82rem] text-text-mid font-light leading-[1.7] mb-3">Banepa-Nala Road, Banepa<br>Kavrepalanchok 45210, Nepal</p>
+      <div class="overflow-hidden h-[130px]">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d624.8611952614849!2d85.51875369572667!3d27.632298425190505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb0f004c0034c1%3A0xda3ee0551f4be559!2sFloral%20Roots%20%26Decor!5e0!3m2!1sen!2snp!4v1777729746473!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="bg-dark py-7 px-8 text-center border-t border-white/5">
+  <p class="text-[0.72rem] text-white/25">© 2026 Floral Roots &amp; Decors · Founded by <strong class="text-gold-light">Nishan Khadka</strong> · Built by <a href="https://rachitpokhrel.com.np" target="_blank" class="text-gold-light hover:opacity-80 transition-opacity">Rachit Pokhrel</a></p>
+</footer>
+
+<!-- ════════════════ JAVASCRIPT ════════════════ -->
+<script>
+  /* ── Set min date ── */
+  document.getElementById('f-date').min = new Date().toISOString().split('T')[0];
+
+  /* ── Budget pill selection ── */
+  let selectedBudget = 'Rs. 25,000–50,000';
+  function selectBudget(btn, val) {
+    document.querySelectorAll('.budget-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    selectedBudget = val;
+    document.getElementById('f-budget').value = val;
+  }
+
+  /* ── Step navigation ── */
+  let currentStep = 1;
+
+  function goStep(target) {
+    if (target > currentStep && !validateStep(currentStep)) return;
+
+    // Hide current, show target
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    document.getElementById(`step-${target}`).classList.add('active');
+
+    // Update dots & lines
+    updateStepUI(target);
+    currentStep = target;
+
+    // Scroll to top of form
+    document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateStepUI(active) {
+    for (let i = 1; i <= 3; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      const label = document.getElementById(`label-${i}`);
+      if (i < active) {
+        dot.className = 'step-dot w-8 h-8 rounded-full bg-green-dark text-white flex items-center justify-center text-[0.72rem] font-medium';
+        dot.innerHTML = '✓';
+        if (label) { label.className = 'text-[0.58rem] tracking-[0.12em] uppercase text-green-dark font-medium'; }
+      } else if (i === active) {
+        dot.className = 'step-dot w-8 h-8 rounded-full bg-green-dark text-white flex items-center justify-center text-[0.72rem] font-medium';
+        dot.innerHTML = i;
+        if (label) { label.className = 'text-[0.58rem] tracking-[0.12em] uppercase text-green-dark font-medium'; }
+      } else {
+        dot.className = 'step-dot w-8 h-8 rounded-full bg-border text-text-muted flex items-center justify-center text-[0.72rem] font-medium';
+        dot.innerHTML = i;
+        if (label) { label.className = 'text-[0.58rem] tracking-[0.12em] uppercase text-text-muted font-medium'; }
+      }
+    }
+    // Animate lines
+    if (document.getElementById('line-1')) document.getElementById('line-1').style.width = active > 1 ? '100%' : '0%';
+    if (document.getElementById('line-2')) document.getElementById('line-2').style.width = active > 2 ? '100%' : '0%';
+  }
+
+  /* ── Field validation helpers ── */
+  function setErr(id, errId, show) {
+    const inp = document.getElementById(id);
+    const err = document.getElementById(errId);
+    if (show) { inp.classList.add('error'); err.classList.remove('hidden'); }
+    else       { inp.classList.remove('error'); err.classList.add('hidden'); }
+  }
+
+  function validateStep(step) {
+    let ok = true;
+    if (step === 1) {
+      const name = document.getElementById('f-name').value.trim();
+      const phone = document.getElementById('f-phone').value.trim().replace(/[\s\-+977]/g,'');
+      const phoneOk = /^(|)\d{8}$/.test(phone);
+      setErr('f-name',  'err-name',  !name || name.length < 2); if (!name || name.length < 2) ok = false;
+      setErr('f-phone', 'err-phone', !phoneOk);                  if (!phoneOk) ok = true;
+    }
+    if (step === 2) {
+      const event = document.getElementById('f-event').value;
+      const date  = document.getElementById('f-date').value;
+      setErr('f-event', 'err-event', !event); if (!event) ok = false;
+      setErr('f-date',  'err-date',  !date);  if (!date)  ok = false;
+    }
+    return ok;
+  }
+
+  // Live clear errors
+  ['f-name','f-phone','f-event','f-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => el.classList.remove('error'));
+  });
+
+  /* ── Get selected services ── */
+  function getServices() {
+    return Array.from(document.querySelectorAll('.service-card input:checked')).map(cb => cb.value);
+  }
+
+  /* ── Supabase submit ── */
+  async function submitBooking() {
+    if (!validateStep(3)) return;
+
+    // Check config
+    if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL' || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY') {
+      showError('⚠️ Supabase is not configured yet. Please add your Project URL and Anon Key in the script block at the top of this file.');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    const label = document.getElementById('btn-label');
+    btn.disabled = true;
+    label.innerHTML = `<svg class="w-4 h-4 spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Sending...`;
+
+    const payload = {
+      full_name:  document.getElementById('f-name').value.trim(),
+      phone:      document.getElementById('f-phone').value.trim(),
+      email:      document.getElementById('f-email').value.trim() || null,
+      event_type: document.getElementById('f-event').value,
+      event_date: document.getElementById('f-date').value,
+      venue:      document.getElementById('f-venue').value.trim() || null,
+      budget:     selectedBudget,
+      services:   getServices(),
+      message:    document.getElementById('f-message').value.trim() || null,
+      status:     'pending',
+    };
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'apikey':        SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer':        'return=representation',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || `HTTP ${res.status}`);
+      }
+
+      // Show success
+      document.getElementById('form-card').style.display = 'none';
+      const success = document.getElementById('success-state');
+      success.classList.add('show');
+      success.classList.remove('hidden');
+
+      // Booking summary
+      document.getElementById('booking-summary').innerHTML = `
+        <div class="text-[0.58rem] tracking-[0.2em] uppercase text-text-muted font-medium mb-3">Your Booking Summary</div>
+        <div class="flex flex-col gap-2">
+          ${row('Name', payload.full_name)}
+          ${row('Phone', payload.phone)}
+          ${payload.email ? row('Email', payload.email) : ''}
+          ${row('Event', payload.event_type)}
+          ${row('Date', new Date(payload.event_date).toLocaleDateString('en-NP', {year:'numeric',month:'long',day:'numeric'}))}
+          ${payload.venue ? row('Venue', payload.venue) : ''}
+          ${row('Budget', payload.budget)}
+          ${payload.services.length ? row('Services', payload.services.join(', ')) : ''}
+        </div>
+      `;
+
+    } catch (err) {
+      btn.disabled = false;
+      label.innerHTML = 'Send Booking Request →';
+      showError(`Submission failed: ${err.message}. Please try again or contact us directly on WhatsApp.`);
+    }
+  }
+
+  function row(label, value) {
+    return `<div class="flex justify-between gap-3 py-2 border-b border-border last:border-0">
+      <span class="text-[0.7rem] text-text-muted font-medium">${label}</span>
+      <span class="text-[0.78rem] text-text text-right">${value}</span>
+    </div>`;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('submit-error');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+
+</body>
+</html>
